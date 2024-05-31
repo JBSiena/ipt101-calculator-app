@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,900');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+        }
+
+        body{
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            width: 100%;
+            background: linear-gradient(
+                45deg,#006078,#82BAC4,#aa8079,#E37C78);
+            background-size: 300% 300%;
+            animation: changecolor 10s ease-in-out infinite;
+        }
+        @keyframes changecolor {
+            0%{
+                background-position: 0% 50%;
+            }
+            50%{
+                background-position: 100% 50%;
+            }
+            100%{
+                background-position: 0% 50%;
+            }
+        }
+
+        .main{ 
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            height: 600px;
+            text-align: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 0px 0px 10px rgb(129, 129, 129);
+            background-color: #f7ebdb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .head{
+            width: 100%;
+            height: 20px;
+        }
+        h2{
+            text-align: center;
+            font-family: 'Poppins';
+            font-weight: 500;
+            text-align: left;
+            font-size: 12px;
+            color: white;
+        }
+
+        .div1,.div2,.div3,.div4{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            gap: 2px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .wrapper{
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
+            gap: 2px;
+            margin-top: 5px;
+        }
+
+        .btn{
+            width: 100%;
+            border-radius: 15px;
+            height: 25%;
+            font-family: 'Poppins';
+            font-weight: 600;
+            font-size: 20px;
+            border-style: groove;
+        }
+
+        .btn:hover{
+            background-color: rgba(0, 0, 0, 0.452);
+            color: rgb(255, 255, 255);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+        .btn:hover:active{
+            border-style: inset;
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn1{
+            width: 100%;
+            border-radius: 10px;
+            height:51%;
+            font-family: 'Poppins';
+            font-weight: 500;
+            font-size: 30px;
+            border-style: groove;
+        }
+
+        #plus,#equal {
+            background-color: #5b99aa;
+        }
+
+        #plus:hover{
+            background-color: #84e6ff;
+            color: rgb(255, 255, 255);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #plus:hover:active{
+            border-style: inset;
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #equal:hover{
+            background-color: #84e6ff;
+            color: rgb(255, 255, 255);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+        #equal:hover:active{
+            border-style: inset;
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        #display {
+            width: 100%;
+            text-align: end;
+            font-size: 50px;
+            box-sizing: border-box;
+            border: 0px;
+            font-weight: 400;
+            color: rgb(0, 0, 0);
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        .display-div{
+            width: 100%;
+            height: 100px;
+        }
+
+        .result-div,#result{
+            width: 100%;
+            border: 0px;
+            text-align: end;
+            height: 40px;
+            font-size: 25px;
+            margin-bottom: 3px;
+            font-weight: 300;
+            color: rgb(0, 0, 0);
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        .history {
+            height: 100px;
+            width: 100%;
+            overflow-y: scroll;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            font-size:  15px;
+            text-transform: uppercase;
+            color: black;
+        }
+
+        .history::-webkit-scrollbar{
+            width: 0px;
+        }
+
+        @media (max-width: 768px){
+            .main{
+                height: 700px;
+                width: 70%;
+            }
+            body{
+                margin: 0px;
+            }
+        }
+
+        @media (max-width: 414px){
+            .main{
+                height: 600px;
+                width: 80%;
+            }
+            body{
+                margin-top: 0px;
+            }
+        }
+
+        @media (max-width:375px) {
+            .main{
+                height: 600px;
+            }
+            body{
+                margin-top: 0px;
+            }
+        }
+
+        @media (max-width:320px) {
+            .main{
+                height: 500px;
+            }
+            body{
+                margin-top: 0px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="head">
+            <h2>Calculator</h2>
+        </div>
+        <div class="history" id="history">
+            <div><p>history</p></div>
+            <p></p>
+        </div>
+        <div class="result-div">
+            <input type="text" id="result" readonly>
+        </div>
+        <div class="display-div">
+            <input type="text" placeholder="0" id="display" readonly>
+        </div>
+        
+        <div class="wrapper">
+            <div class="div1">
+                <input type="button" value="C" class="btn" onclick="clrall()">
+                <input type="button" value="7" class="btn" onclick="press('7')">
+                <input type="button" value="4" class="btn" onclick="press('4')">
+                <input type="button" value="1" class="btn" onclick="press('1')">
+                <input type="button" value="0" class="btn" onclick="press('0')">
+            </div>
+            <div class="div2">
+                <input type="button" value="DEL" class="btn" onclick="clr()">
+                <input type="button" value="8" class="btn" onclick="press('8')">
+                <input type="button" value="5" class="btn" onclick="press('5')">
+                <input type="button" value="2" class="btn" onclick="press('2')">
+                <input type="button" value="00" class="btn" onclick="press('00')">
+            </div>
+            <div class="div3">
+                <input type="button" value="/" class="btn" onclick="oper('/')"  id="plus">
+                <input type="button" value="9" class="btn" onclick="press('9')">
+                <input type="button" value="6" class="btn" onclick="press('6')">
+                <input type="button" value="3" class="btn" onclick="press('3')">
+                <input type="button" value="." class="btn" onclick="press('.')">
+            </div>
+            <div class="div4">
+                <input type="button" value="-" class="btn" onclick="oper('-')"  id="plus">
+                <input type="button" value="*" class="btn" onclick="oper('*')"  id="plus">
+                <input type="button" value="+" class="btn" onclick="oper('+')" id="plus">
+                <input type="button" value="=" class="btn1" onclick="sum()" id="equal">
+            </div>
+        </div>
+    </div>
+    <script>
+        let reset = '';
+        let history = [];
+
+        function press(key){
+            if(reset == 'reset'){
+                display.value = '';
+                reset = '';
+            }
+            display.value += key;
+            comma();
+        }
+
+        function oper(operkey){
+            if(reset == 'reset'){
+                display.value = '';
+                reset = '';
+                display.value = result.value;
+            }
+            display.value +=  operkey;
+        }
+
+        function clr(){
+            display.value = display.value.toString().slice(0,-1);
+        }
+
+        function clrall(){
+            display.value = '';
+            result.value = '';
+        }
+
+        function sum(){
+            if(display.value !== ''){
+                if(['+', '-', '*', '/'].includes(display.value.slice(-1))){
+                    display.value = display.value.slice(0, -1);
+                    result.value = result.value.slice(0, -1);
+                }
+                else{
+                    let res = eval(display.value).toLocaleString();
+                    result.value = res;
+                    reset = 'reset';
+                    history.push(display.value + ' = ' + res);
+                    updateHistory();
+                }
+            }
+        }
+
+        function updateHistory(array){
+            let historyDiv = document.getElementById('history');
+            historyDiv.innerHTML = '<p>History</p>' + history.map(item => '<p>' + item + '</p>').join('');
+        }
+
+    </script>
+</body>
+</html>
